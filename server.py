@@ -21,4 +21,4 @@ class MyCGIHandler(http.server.CGIHTTPRequestHandler):
 
 PORT = int(os.environ.get("PORT", 8080))
 print(f"Starting CGI server on port {PORT}...")
-http.server.test(HandlerClass=MyCGIHandler, port=PORT)
+http.server.test(HandlerClass=MyCGIHandler, port=PORT, bind="0.0.0.0")
