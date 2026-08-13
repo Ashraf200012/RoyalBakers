@@ -19,6 +19,11 @@ class MyCGIHandler(http.server.CGIHTTPRequestHandler):
         # For all other files (css, images, html), serve them normally
         return False
 
-PORT = int(os.environ.get("PORT", 8080))
-print(f"Starting CGI server on port {PORT}...")
-http.server.test(HandlerClass=MyCGIHandler, port=PORT, bind="0.0.0.0")
+if __name__ == '__main__':
+    # Force the server to bind to 0.0.0.0 so Render can see it
+    PORT = int(os.environ.get("PORT", 8080))
+    server_address = ('0.0.0.0', PORT)
+    print(f"Starting CGI server on 0.0.0.0:{PORT}...")
+    
+    httpd = http.server.HTTPServer(server_address, MyCGIHandler)
+    httpd.serve_forever()
